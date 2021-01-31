@@ -2,11 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MassTransit;
+using MassTransit.Definition;
+using MassTransit.JobService.Components.Consumers;
+using MassTransit.RabbitMqTransport;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
+using Storez.Components.Consumers;
 
 namespace Storez.Service
 {
@@ -42,6 +48,12 @@ namespace Storez.Service
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
+                    services.TryAddSingleton(KebabCaseEndpointNameFormatter.Instance);
+                    services.AddMassTransit(cfg =>
+                    {
+                        cfg.AddConsumersFromNamespaceContaining<SubmitOrderConsumer>();
+                        cfg.UsingRabbitMq(ConfigureBus);
+                    });
                     services.AddHostedService<Worker>();
                 })
                 .ConfigureLogging((hostingContext, logging) =>
@@ -49,5 +61,10 @@ namespace Storez.Service
                     logging.AddSerilog(dispose: true);
                     logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
                 });
+
+        private static void ConfigureBus(IBusRegistrationContext context, IRabbitMqBusFactoryConfigurator configurator)
+        {
+            configurator.ConfigureEndpoints(context);
+        }
     }
 }
