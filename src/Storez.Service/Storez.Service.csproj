@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <UserSecretsId>dotnet-Storez.Service-AB5FAE35-3149-4E45-BEE2-C98556903E03</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MassTransit.Analyzers" Version="7.1.4" />
+        <PackageReference Include="MassTransit.AspNetCore" Version="7.1.4" />
+        <PackageReference Include="MassTransit.RabbitMQ" Version="7.1.4" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+        <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+    </ItemGroup>
+</Project>
