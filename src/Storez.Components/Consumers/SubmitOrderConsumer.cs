@@ -17,6 +17,13 @@ namespace Storez.Components.Consumers
                 InVar.Timestamp,
                 context.Message.CustomerNumber
             });
+
+            await context.Publish<OrderSubmitted>(new
+            {
+                context.Message.OrderId,
+                context.Message.Timestamp,
+                context.Message.CustomerNumber
+            });
         }
     }
 }

@@ -8,6 +8,7 @@
     <ItemGroup>
         <PackageReference Include="MassTransit.Analyzers" Version="7.1.4" />
         <PackageReference Include="MassTransit.AspNetCore" Version="7.1.4" />
+        <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.1.4" />
         <PackageReference Include="MassTransit.RabbitMQ" Version="7.1.4" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
         <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
